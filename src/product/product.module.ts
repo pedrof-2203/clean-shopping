@@ -5,6 +5,8 @@ import { PRODUCT_REPOSITORY } from './application/ports/product.repository.port'
 import { DrizzleProductRepository } from './infrastructure/adapters/drizzle-product.repository';
 import { CommandHandlers } from './application';
 import { QueryHandlers } from './application/queries';
+import { ConfigService } from '@nestjs/config';
+import { MongoProductRepository } from './infrastructure/adapters/mongo-product.repository';
 
 @Module({
   imports: [CqrsModule],
@@ -12,9 +14,20 @@ import { QueryHandlers } from './application/queries';
   providers: [
     ...CommandHandlers,
     ...QueryHandlers,
+    MongoProductRepository,
+    DrizzleProductRepository,
     {
       provide: PRODUCT_REPOSITORY,
-      useClass: DrizzleProductRepository,
+      useFactory: (
+        configService: ConfigService,
+        mongoRepo: MongoProductRepository,
+        drizzleRepo: DrizzleProductRepository,
+      ) => {
+        return configService.get('DATABASE') === 'mongodb'
+          ? mongoRepo
+          : drizzleRepo;
+      },
+      inject: [ConfigService, MongoProductRepository, DrizzleProductRepository],
     },
   ],
 })
