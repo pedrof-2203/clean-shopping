@@ -7,6 +7,7 @@ import { QueryHandlers } from './application/queries/handlers';
 import { NOTIFICATION_SERVICE } from './application/ports/notification.port';
 import { ConsoleNotificationAdapter } from './infrastructure/adapters/console.notification.adapter';
 import { EventHandlers } from './application/events';
+import { NodemailerEmailAdapter } from './infrastructure/adapters/nodemailer-notification.adapter';
 
 @Module({
   controllers: [CustomerController],
@@ -20,7 +21,7 @@ import { EventHandlers } from './application/events';
     },
     {
       provide: NOTIFICATION_SERVICE,
-      useClass: ConsoleNotificationAdapter,
+      useClass: NodemailerEmailAdapter,
     },
   ],
 })
