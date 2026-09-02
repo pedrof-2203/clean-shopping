@@ -5,7 +5,10 @@ import {
 } from '../../application/ports/product.repository.port';
 import { Product } from '../../domain/entities/product.entity';
 import { and, eq, gte, lte, SQL } from 'drizzle-orm';
-import { DRIZZLE, DrizzleDB } from '../../../shared/infrastructure/database/postgres/drizzle.provider';
+import {
+  DRIZZLE,
+  DrizzleDB,
+} from '../../../shared/infrastructure/database/postgres/drizzle.provider';
 import { products } from '../../../shared/infrastructure/database/postgres/schema';
 import { ProductId } from '../../domain/value-objects/product-id.vo';
 import { Sku } from '../../domain/value-objects/sku.vo';
@@ -42,6 +45,28 @@ export class DrizzleProductRepository implements ProductRepository {
       .select()
       .from(products)
       .where(eq(products.id, id.getValue()));
+
+    if (rows.length === 0) return null;
+
+    return DrizzleProductRepository.toDomain(rows[0]);
+  }
+
+  async findBySku(sku: Sku): Promise<Product | null> {
+    const rows = await this.db
+      .select()
+      .from(products)
+      .where(eq(products.sku, sku.getValue()));
+
+    if (rows.length === 0) return null;
+
+    return DrizzleProductRepository.toDomain(rows[0]);
+  }
+
+  async findByName(name: string): Promise<Product | null> {
+    const rows = await this.db
+      .select()
+      .from(products)
+      .where(eq(products.name, name));
 
     if (rows.length === 0) return null;
 
