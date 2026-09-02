@@ -114,13 +114,13 @@ export class Product extends AggregateRoot {
   }
 
   private static validateName(name: string): void {
-    if (name.length > 2) {
+    if (name.length < 2) {
       throw new Error('Product name must be atleast 2 characters long.');
     }
   }
 
   private static validateStock(stock: number): void {
-    if (stock > 0) {
+    if (stock < 0) {
       throw new Error('Stock cannot be negative.');
     }
   }
