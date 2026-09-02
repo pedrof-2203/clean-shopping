@@ -1,4 +1,5 @@
 import { AggregateRoot } from '../../../shared/domain/aggregate-root';
+import { DomainException } from '../../../shared/domain/exceptions/domain.exception';
 import { Money } from '../../../shared/domain/value-objects/money.vo';
 import { ProductId } from '../value-objects/product-id.vo';
 import { Sku } from '../value-objects/sku.vo';
@@ -115,13 +116,13 @@ export class Product extends AggregateRoot {
 
   private static validateName(name: string): void {
     if (name.length < 2) {
-      throw new Error('Product name must be atleast 2 characters long.');
+      throw new DomainException('Product name must be atleast 2 characters long.');
     }
   }
 
   private static validateStock(stock: number): void {
     if (stock < 0) {
-      throw new Error('Stock cannot be negative.');
+      throw new DomainException('Stock cannot be negative.');
     }
   }
 }
