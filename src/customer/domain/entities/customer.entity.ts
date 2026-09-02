@@ -1,6 +1,6 @@
 import { AggregateRoot } from '../../../shared/domain/aggregate-root';
-import { CustomerId } from '../../value-objects/customer-id.vo';
-import { Email } from '../../value-objects/email.vo';
+import { CustomerId } from '../value-objects/customer-id.vo';
+import { Email } from '../value-objects/email.vo';
 
 interface CustomerProps {
   id: CustomerId;
@@ -62,6 +62,10 @@ export class Customer extends AggregateRoot {
 
   getId(): CustomerId {
     return this._id;
+  }
+
+  getEmail(): Email {
+    return this._email;
   }
 
   getFirstName(): string {
