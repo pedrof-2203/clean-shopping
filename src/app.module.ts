@@ -5,11 +5,13 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { ProductModule } from './product/product.module';
 import { ConfigModule } from '@nestjs/config';
 import { CustomerModule } from './customer/customer.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
     CqrsModule.forRoot(),
     ConfigModule.forRoot({ isGlobal: true }),
+    OrderModule,
     ProductModule,
     CustomerModule,
     MongoModule,
