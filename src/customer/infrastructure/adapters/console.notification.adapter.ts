@@ -5,7 +5,7 @@ import {
 } from '../../application/ports/notification.port';
 import {
   CUSTOMER_REPOSITORY,
-  CustomerRepository,
+  CustomerRepositoryPort,
 } from '../../application/ports/customer.repository.port';
 import { CustomerId } from '../../domain/value-objects/customer-id.vo';
 
@@ -15,7 +15,7 @@ export class ConsoleNotificationAdapter implements NotificationPort {
 
   constructor(
     @Inject(CUSTOMER_REPOSITORY)
-    private readonly customerRepository: CustomerRepository,
+    private readonly customerRepository: CustomerRepositoryPort,
   ) {}
 
   async sendNotification(notification: Notification): Promise<void> {

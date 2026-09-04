@@ -3,7 +3,7 @@ import { RegisterCustomerCommand } from './register-customer.command';
 import { Inject } from '@nestjs/common';
 import {
   CUSTOMER_REPOSITORY,
-  CustomerRepository,
+  CustomerRepositoryPort,
 } from '../../ports/customer.repository.port';
 import { Email } from '../../../domain/value-objects/email.vo';
 import {
@@ -19,7 +19,7 @@ export class RegisterCustomerHandler implements ICommandHandler<
 > {
   constructor(
     @Inject(CUSTOMER_REPOSITORY)
-    private readonly customerRepository: CustomerRepository,
+    private readonly customerRepository: CustomerRepositoryPort,
     private readonly eventPublisher: EventPublisher,
   ) {}
 

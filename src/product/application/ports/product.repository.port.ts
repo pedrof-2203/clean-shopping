@@ -10,7 +10,7 @@ export interface ProductFilters {
   maxPrice?: number;
 }
 
-export interface ProductRepository {
+export interface ProductRepositoryPort {
   save(product: Product): Promise<void>;
   findById(product: ProductId): Promise<Product | null>;
   findBySku(sku: Sku): Promise<Product | null>;

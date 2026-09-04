@@ -1,7 +1,7 @@
 import { Collection, Db } from 'mongodb';
 import {
   ProductFilters,
-  ProductRepository,
+  ProductRepositoryPort,
 } from '../../application/ports/product.repository.port';
 import { Inject } from '@nestjs/common';
 import { MONGO_DB } from '../../../shared/infrastructure/database/mongodb/mongo.provider';
@@ -24,7 +24,7 @@ interface ProductDocument {
   updatedAt: Date;
 }
 
-export class MongoProductRepository implements ProductRepository {
+export class MongoProductRepository implements ProductRepositoryPort {
   private readonly collection: Collection<ProductDocument>;
 
   constructor(@Inject(MONGO_DB) private readonly db: Db) {

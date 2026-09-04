@@ -3,7 +3,7 @@ import { ListProductsQuery } from '../list-products.query';
 import { Inject } from '@nestjs/common';
 import {
   PRODUCT_REPOSITORY,
-  ProductRepository,
+  ProductRepositoryPort,
 } from '../../ports/product.repository.port';
 import { Product } from '../../../domain/entities/product.entity';
 
@@ -14,7 +14,7 @@ export class ListProductsHandler implements IQueryHandler<
 > {
   constructor(
     @Inject(PRODUCT_REPOSITORY)
-    private readonly productRepository: ProductRepository,
+    private readonly productRepository: ProductRepositoryPort,
   ) {}
 
   async execute(query: ListProductsQuery): Promise<Product[]> {

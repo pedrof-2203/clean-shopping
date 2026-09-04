@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CustomerRepository } from '../../application/ports/customer.repository.port';
+import { CustomerRepositoryPort } from '../../application/ports/customer.repository.port';
 import {
   DRIZZLE,
   DrizzleDB,
@@ -13,7 +13,7 @@ import { eq } from 'drizzle-orm';
 type CustomerRow = typeof customers.$inferSelect;
 
 @Injectable()
-export class DrizzleCustomerRepository implements CustomerRepository {
+export class DrizzleCustomerRepository implements CustomerRepositoryPort {
   constructor(
     @Inject(DRIZZLE)
     private readonly db: DrizzleDB,

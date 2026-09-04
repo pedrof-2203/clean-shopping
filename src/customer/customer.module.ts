@@ -24,5 +24,6 @@ import { NodemailerEmailAdapter } from './infrastructure/adapters/nodemailer-not
       useClass: NodemailerEmailAdapter,
     },
   ],
+  exports: [CUSTOMER_REPOSITORY],
 })
 export class CustomerModule {}

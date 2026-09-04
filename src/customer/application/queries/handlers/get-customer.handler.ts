@@ -4,7 +4,7 @@ import { Customer } from '../../../domain/entities/customer.entity';
 import { Inject } from '@nestjs/common';
 import {
   CUSTOMER_REPOSITORY,
-  CustomerRepository,
+  CustomerRepositoryPort,
 } from '../../ports/customer.repository.port';
 import { CustomerId } from '../../../domain/value-objects/customer-id.vo';
 import {
@@ -19,7 +19,7 @@ export class GetCustomerHandler implements IQueryHandler<
 > {
   constructor(
     @Inject(CUSTOMER_REPOSITORY)
-    private readonly customerRepository: CustomerRepository,
+    private readonly customerRepository: CustomerRepositoryPort,
   ) {}
 
   async execute(query: GetCustomerQuery): Promise<Customer> {

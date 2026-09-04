@@ -7,7 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import {
   CUSTOMER_REPOSITORY,
-  CustomerRepository,
+  CustomerRepositoryPort,
 } from '../../application/ports/customer.repository.port';
 import { CustomerId } from '../../domain/value-objects/customer-id.vo';
 import { ApplicationException } from '../../../shared/domain/exceptions/application.exception';
@@ -21,7 +21,7 @@ export class NodemailerEmailAdapter implements NotificationPort {
   constructor(
     private readonly configService: ConfigService,
     @Inject(CUSTOMER_REPOSITORY)
-    private readonly customerRepository: CustomerRepository,
+    private readonly customerRepository: CustomerRepositoryPort,
   ) {
     this.transporter = nodemailer.createTransport({
       host: this.configService.getOrThrow<string>('SMTP_HOST'),
