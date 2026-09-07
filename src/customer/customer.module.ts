@@ -5,7 +5,6 @@ import { CommandHandlers } from './application/use-cases';
 import { CustomerController } from './presentation/customer.controller';
 import { QueryHandlers } from './application/queries/handlers';
 import { NOTIFICATION_SERVICE } from './application/ports/notification.port';
-import { ConsoleNotificationAdapter } from './infrastructure/adapters/console.notification.adapter';
 import { EventHandlers } from './application/events';
 import { NodemailerEmailAdapter } from './infrastructure/adapters/nodemailer-notification.adapter';
 
@@ -24,6 +23,6 @@ import { NodemailerEmailAdapter } from './infrastructure/adapters/nodemailer-not
       useClass: NodemailerEmailAdapter,
     },
   ],
-  exports: [CUSTOMER_REPOSITORY],
+  exports: [CUSTOMER_REPOSITORY, NOTIFICATION_SERVICE],
 })
 export class CustomerModule {}
