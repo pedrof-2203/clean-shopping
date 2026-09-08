@@ -6,6 +6,7 @@ import { ProductModule } from './product/product.module';
 import { ConfigModule } from '@nestjs/config';
 import { CustomerModule } from './customer/customer.module';
 import { OrderModule } from './order/order.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { OrderModule } from './order/order.module';
     OrderModule,
     ProductModule,
     CustomerModule,
+    PaymentModule,
     MongoModule,
     DrizzleModule,
   ],
