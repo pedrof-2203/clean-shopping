@@ -10,12 +10,14 @@ import { ProductAdapter } from './infrastructure/adapters/product.adapter';
 import { CustomerModule } from '../customer/customer.module';
 import { ProductModule } from '../product/product.module';
 import { EventHandlers } from './application/events';
+import { QueryHandlers } from './application/queries/handlers';
 
 @Module({
   imports: [CustomerModule, ProductModule],
   controllers: [OrderController],
   providers: [
     ...CommandHandlers,
+    ...QueryHandlers,
     ...EventHandlers,
     {
       provide: ORDER_REPOSITORY,
