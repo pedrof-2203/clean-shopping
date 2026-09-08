@@ -18,6 +18,10 @@ export class Money {
     return new Money(0, currency.toUpperCase());
   }
 
+  static fromCents(cents: number, currency: string = 'USD'): Money {
+    return new Money(cents / 100, currency.toUpperCase());
+  }
+
   add(other: Money): Money {
     this.assetSameCurrency(other);
     return Money.create(this.amount + other.amount, this.currency);
