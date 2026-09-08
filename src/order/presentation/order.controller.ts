@@ -10,15 +10,14 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { PlaceOrderDto } from './dtos/place-order.dto';
-import {
-  OrderItemResponseDto,
-  OrderResponseDto,
-} from './dtos/order-response.dto';
+import { OrderResponseDto } from './dtos/order-response.dto';
 import { PlaceOrderCommand } from '../application/use-cases/place-order/place-order.command';
 import { ListOrdersQuery } from '../application/queries/list-orders.query';
 import { Order } from '../domain/entities/order.entity';
 import { GetOrderQuery } from '../application/queries/get-order.query';
 import { ConfirmOrderCommand } from '../application/use-cases/confirm-order/confirm-order.command';
+import { ShipOrderDto } from './dtos/ship-order.dto';
+import { ShipOrderCommand } from '../application/use-cases/ship-order/ship-order.command';
 
 @Controller('orders')
 export class OrderController {
@@ -70,8 +69,18 @@ export class OrderController {
 
   @Patch(':id/confirm')
   async confirm(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
-    await this.commandBus.execute<ConfirmOrderCommand>(
+    await this.commandBus.execute<ConfirmOrderCommand, void>(
       new ConfirmOrderCommand(id),
+    );
+  }
+
+  @Patch(':id/ship')
+  async ship(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() dto: ShipOrderDto,
+  ): Promise<void> {
+    await this.commandBus.execute<ShipOrderCommand, void>(
+      new ShipOrderCommand(id, dto.trackingNumber),
     );
   }
 }
