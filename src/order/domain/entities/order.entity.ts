@@ -9,6 +9,7 @@ import { OrderStatus } from '../value-objects/order-status.vo';
 import { ShippingAddress } from '../value-objects/shipping-address.vo';
 import { OrderItem } from './order-item.entity';
 import { OrderDeliveredEvent } from '../events/order-delivered.event';
+import { OrderCancelledEvent } from '../events/order-cancelled.event';
 
 interface OrderProps {
   id: OrderId;
@@ -170,5 +171,16 @@ export class Order extends AggregateRoot {
     this._updatedAt = new Date();
 
     this.apply(new OrderDeliveredEvent(this._id.getValue(), this._customerId));
+  }
+
+  cancel(reason: string): void {
+    if (!reason || reason.trim().length === 0) {
+      throw new DomainException('A cancellation reason is required.');
+    }
+
+    this._status = this._status.cancel();
+    this._updatedAt = new Date();
+
+    this.apply(new OrderCancelledEvent(this._id.getValue(), this._customerId));
   }
 }

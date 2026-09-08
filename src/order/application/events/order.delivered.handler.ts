@@ -1,5 +1,4 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { OrderShippedEvent } from '../../domain/events/order-shipped.event';
 import { Inject } from '@nestjs/common';
 import {
   NOTIFICATION_SERVICE,
