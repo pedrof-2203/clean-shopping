@@ -54,7 +54,7 @@ export class StripePaymentAdapter implements PaymentGatewayPort {
     return this.stripe.webhooks.constructEvent(
       payload,
       signature,
-      this.configService.getOrThrow<string>('STRIPE_WEBHOOK_SECRET'),
+      this.configService.getOrThrow('STRIPE_WEBHOOK_SECRET'),
     );
   }
 }

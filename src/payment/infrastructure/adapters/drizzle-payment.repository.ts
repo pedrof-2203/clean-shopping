@@ -49,6 +49,18 @@ export class DrizzlePaymentRepository implements PaymentRepository {
     return DrizzlePaymentRepository.toDomain(row);
   }
 
+  async findById(id: PaymentId): Promise<Payment | null> {
+    const row = await this.db.query.payments.findFirst({
+      where: eq(payments.id, id.getValue()),
+    });
+
+    if (!row) {
+      return null;
+    }
+
+    return DrizzlePaymentRepository.toDomain(row);
+  }
+
   private static toDomain(row: typeof payments.$inferSelect): Payment {
     return Payment.reconstitute({
       id: new PaymentId(row.id),
