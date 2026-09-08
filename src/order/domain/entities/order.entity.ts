@@ -8,6 +8,7 @@ import { OrderId } from '../value-objects/order-id.vo';
 import { OrderStatus } from '../value-objects/order-status.vo';
 import { ShippingAddress } from '../value-objects/shipping-address.vo';
 import { OrderItem } from './order-item.entity';
+import { OrderDeliveredEvent } from '../events/order-delivered.event';
 
 interface OrderProps {
   id: OrderId;
@@ -162,5 +163,12 @@ export class Order extends AggregateRoot {
         this._customerId,
       ),
     );
+  }
+
+  deliver(): void {
+    this._status = this._status.deliver();
+    this._updatedAt = new Date();
+
+    this.apply(new OrderDeliveredEvent(this._id.getValue(), this._customerId));
   }
 }
